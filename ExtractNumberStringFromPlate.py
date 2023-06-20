@@ -11,11 +11,10 @@ minArea = 500
 count = 0
 _x = 0
 nPlate_cascade = cv2.CascadeClassifier('raw.githubusercontent.com_opencv_opencv_master_data_haarcascades_haarcascade_russian_plate_number.xml') #russian number plates video
-
+path="C:\\Users\\DELL\\Techathon\\Automatic_Number_Plate_Detection_Recognition_YOLOv8\\Scanned_image1\\*.jpg"    #images extracted from video and store here (and taken one by one for process)
 
 reader = easyocr.Reader(['en'])
 while _x < 2:
-    path="C:\\Users\\DELL\\Techathon\\Automatic_Number_Plate_Detection_Recognition_YOLOv8\\Scanned_image1\\*.jpg"    #images extracted from video and store here (and taken one by one for process)
     images = [cv2.imread(images) for images in glob.glob(path)]
 
     for i in range(len(images)): # iterrate through images
