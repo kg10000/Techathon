@@ -5,11 +5,13 @@ import cv2
 import os
 import glob
 import easyocr
+import pytesseract
 from os import listdir
 
 minArea = 500
 count = 0
 _x = 0
+#pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 nPlate_cascade = cv2.CascadeClassifier('raw.githubusercontent.com_opencv_opencv_master_data_haarcascades_haarcascade_russian_plate_number.xml') #russian number plates video
 path="C:\\Users\\DELL\\Techathon\\Automatic_Number_Plate_Detection_Recognition_YOLOv8\\Scanned_image1\\*.jpg"    #images extracted from video and store here (and taken one by one for process)
 
@@ -33,11 +35,12 @@ while _x < 2:
                 #cv2.imshow("ROI",roi_gray_1)
                 #_,roi_threshhold = cv2.threshold(roi_gray_1,64,255,cv2.THRESH_BINARY)
                 #cv2.imshow("ROI",roi_threshhold)
-                output = reader.readtext(roi_gray_1)
-                for out in output:
+                output_text = reader.readtext(roi_gray_1)
+                for out in output_text:
                     text_bbox,text,text_score = out
-                    print(text,text_score)   # Print text on number plate and accuracy of prediction
-
+                    print("easy ocr output = ",text,text_score)   # Print text on number plate and accuracy of prediction
+                    
+                #print("output from tesseract = ",pytesseract.image_to_data(roi_gray_1))
                 cv2.imwrite('C:/Users/DELL/Techathon/Automatic_Number_Plate_Detection_Recognition_YOLOv8/Scanned_images/ram_'+str(count)+".jpg",imgRoi) #Stored plate image intp the folder
                 count = count+1
                 cv2.waitKey(0)
